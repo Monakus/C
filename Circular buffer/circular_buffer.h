@@ -1,5 +1,5 @@
-#ifndef C_CIRCULAR_BUFFER_H
-#define C_CIRCULAR_BUFFER_H
+#ifndef MAIN_C_CIRCULAR_BUFFER_H
+#define MAIN_C_CIRCULAR_BUFFER_H
 
 struct circular_buffer_t {
     int *ptr;
@@ -23,5 +23,8 @@ int circular_buffer_empty(const struct circular_buffer_t *a);
 int circular_buffer_full(const struct circular_buffer_t *a);
 
 void circular_buffer_display(const struct circular_buffer_t *a);
+void print_from_beggining(const struct circular_buffer_t *cb);
+void print_from_end(const struct circular_buffer_t *cb);
+void print_from_middle(const struct circular_buffer_t *cb);
 
-#endif //C_CIRCULAR_BUFFER_H
+#endif //MAIN_C_CIRCULAR_BUFFER_H

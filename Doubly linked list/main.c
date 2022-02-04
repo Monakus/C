@@ -1,8 +1,6 @@
 #include <stdio.h>
 #include "doubly_linked_list.h"
 #include "stdlib.h"
-#include "tested_declarations.h"
-#include "rdebug.h"
 
 int main() {
     struct doubly_linked_list_t *lista = dll_create();

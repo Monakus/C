@@ -1,8 +1,6 @@
 #include "array.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include "tested_declarations.h"
-#include "rdebug.h"
 
 int array_create(struct array_t *a, int N){
     if(!a || N <= 0) return 1;

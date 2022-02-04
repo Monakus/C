@@ -1,7 +1,5 @@
 #include <stdio.h>
 #include "circular_buffer.h"
-#include "tested_declarations.h"
-#include "rdebug.h"
 
 int main(){
     int roz;

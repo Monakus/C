@@ -1,8 +1,6 @@
 #include "circular_buffer.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include "tested_declarations.h"
-#include "rdebug.h"
 
 int circular_buffer_create(struct circular_buffer_t *cb, int N){
     if(!cb || N <= 0) return 1;
@@ -38,16 +36,14 @@ int circular_buffer_empty(const struct circular_buffer_t *cb){
     if(!cb || !cb->ptr || cb->capacity <= 0 || cb->end < 0 || cb->end >= cb->capacity ||
        cb->begin < 0 || cb->begin >= cb->capacity) return -1;
 
-    if(cb->begin == cb->end && cb->full == 0) return 1;
-    return 0;
+    return (cb->begin == cb->end && cb->full == 0);
 }
 
 int circular_buffer_full(const struct circular_buffer_t *cb){
     if(!cb || !cb->ptr || cb->capacity <= 0 || cb->end < 0 || cb->end >= cb->capacity ||
        cb->begin < 0 || cb->begin >= cb->capacity) return -1;
 
-    if(cb->full == 1) return 1;
-    return 0;
+    return (cb->full == 1);
 }
 
 int circular_buffer_push_back(struct circular_buffer_t *cb, int value){
@@ -58,8 +54,7 @@ int circular_buffer_push_back(struct circular_buffer_t *cb, int value){
         *(cb->ptr + cb->begin) = value;
         cb->end = (cb->end+1)%cb->capacity;
         cb->begin = (cb->begin+1)%cb->capacity;
-    }
-    else{
+    }else{
         *(cb->ptr + cb->end) = value;
         cb->end = (cb->end+1)%cb->capacity;
         if(cb->end == cb->begin)
@@ -86,8 +81,7 @@ int circular_buffer_pop_front(struct circular_buffer_t *cb, int *err_code){
     if(circular_buffer_full(cb)){
         cb->begin = (cb->begin+1)%cb->capacity;
         cb->full = 0;
-    }
-    else
+    }else
         cb->begin = (cb->begin+1)%cb->capacity;
 
     if(err_code)
@@ -126,23 +120,33 @@ int circular_buffer_pop_back(struct circular_buffer_t *cb, int *err_code){
 
 void circular_buffer_display(const struct circular_buffer_t *cb){
     if(!cb || circular_buffer_empty(cb)) return;
-    if(cb->end > cb->begin){
-        for (int i = cb->begin; i < cb->end; ++i)
-            printf("%d ", *(cb->ptr+i));
-    }else if(cb->begin > cb->end){
-        int i = cb->begin, ilosc = 0;
-        while (ilosc < (cb->capacity -(cb->begin - cb->end))){
-            printf("%d ", *(cb->ptr+i));
-            i = (i+1)%cb->capacity;
-            ilosc++;
-        }
-    }else{
-        int i = cb->begin, ilosc = 0;
-        while (ilosc < cb->capacity){
-            printf("%d ", *(cb->ptr+i));
-            i = (i+1)%cb->capacity;
-            ilosc++;
-        }
-    }
+    if(cb->end > cb->begin)
+        print_from_beggining(cb);
+    else if(cb->begin > cb->end)
+        print_from_end(cb);
+    else
+        print_from_middle(cb);
+}
 
+void print_from_beggining(const struct circular_buffer_t *cb){
+    for (int i = cb->begin; i < cb->end; ++i)
+        printf("%d ", *(cb->ptr+i));
+}
+
+void print_from_end(const struct circular_buffer_t *cb){
+    int i = cb->begin, ilosc = 0;
+    while (ilosc < (cb->capacity -(cb->begin - cb->end))){
+        printf("%d ", *(cb->ptr+i));
+        i = (i+1)%cb->capacity;
+        ilosc++;
+    }
+}
+
+void print_from_middle(const struct circular_buffer_t *cb){
+    int i = cb->begin, ilosc = 0;
+    while (ilosc < cb->capacity){
+        printf("%d ", *(cb->ptr+i));
+        i = (i+1)%cb->capacity;
+        ilosc++;
+    }
 }

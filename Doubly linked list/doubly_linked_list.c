@@ -1,8 +1,6 @@
 #include "doubly_linked_list.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include "tested_declarations.h"
-#include "rdebug.h"
 
 struct doubly_linked_list_t* dll_create(){
     struct doubly_linked_list_t *lista = calloc(1, sizeof(struct doubly_linked_list_t));

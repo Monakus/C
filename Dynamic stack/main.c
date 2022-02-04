@@ -1,7 +1,5 @@
 #include <stdio.h>
 #include "stack.h"
-#include "tested_declarations.h"
-#include "rdebug.h"
 
 int main() {
     struct stack_t *stos;

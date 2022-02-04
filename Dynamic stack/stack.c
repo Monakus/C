@@ -1,8 +1,6 @@
 #include <stdlib.h>
 #include "stack.h"
 #include <stdio.h>
-#include "tested_declarations.h"
-#include "rdebug.h"
 
 int stack_init(struct stack_t **stack){
     if(!stack) return 1;
